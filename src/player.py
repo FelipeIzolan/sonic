@@ -1,22 +1,26 @@
 import pygame
-from lib.entity import Entity
+from lib.object import Object
+from lib.sprite import Sprite
+from lib.animation import Animation
 
 
-class Player(Entity):
-    def __init__(self, game):
-        super().__init__(game, 'player', 56, 64)
+class Player(Object):
+    def __init__(self):
+        self.sprite = Sprite.from_filename('sonic.bmp')
+        self.animation = Animation(self.sprite)
 
-        self.anim.add(
+        super().__init__(56, 64, self.sprite, self.animation)
+
+        self.animation.add(
             'idle',
             (
                 pygame.Rect(0, 0, 16, 16),
                 pygame.Rect(16, 0, 16, 16)
             ),
             400,
-            True
         )
 
-        self.anim.add(
+        self.animation.add(
             'walk',
             (
                 pygame.Rect(0, 16,  16, 16),
@@ -27,7 +31,7 @@ class Player(Entity):
             200
         )
 
-        self.anim.add(
+        self.animation.add(
             'run',
             (
                 pygame.Rect(0, 32,  16, 16),
@@ -38,20 +42,22 @@ class Player(Entity):
             100
         )
 
-    def _keypress(self, keys):
+        self.animation.play('idle')
+
+    def keypress(self, keys):
         if keys[pygame.K_RIGHT]:
-            self.pos.x += 1
+            self.position.x += 1
             self.flipX = False
-            self.anim.play('walk')
+            self.animation.play('walk')
         elif keys[pygame.K_LEFT]:
-            self.pos.x -= 1
+            self.position.x -= 1
             self.flipX = True
-            self.anim.play('walk')
+            self.animation.play('walk')
         else:
-            self.anim.play('idle')
+            self.animation.play('idle')
 
-    def _update(self):
-        super()._update()
+    def update(self):
+        super().update()
 
-    def _draw(self):
-        super()._draw()
+    def draw(self, screen):
+        super().draw(screen)

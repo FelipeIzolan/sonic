@@ -14,18 +14,7 @@ class Game:
         self.quit = False
         self.delta = 0.0
 
-        self.sprites = {}
-        self.load('player', 'sonic.bmp')
-
-        self.player = Player(self)
-
-    def load(self, key, filename):
-        ext = os.path.splitext(filename)[1]
-
-        if ext in ('.bmp'):
-            path = os.path.join(ADIR, filename)
-            self.sprites[key] = pygame.image.load(path).convert()
-#             self.sprites[key].set_colorkey(COLORKEY, pygame.RLEACCEL)
+        self.player = Player()
 
     def start(self):
         while not self.quit:
@@ -35,11 +24,11 @@ class Game:
 
             keys = pygame.key.get_pressed()
 
-            self.player._keypress(keys)
-            self.player._update()
+            self.player.keypress(keys)
+            self.player.update()
 
             self.screen.fill(BACKGROUND)
-            self.player._draw()
+            self.player.draw(self.screen)
             pygame.display.update()
 
             self.delta = self.clock.tick(30) / 1000

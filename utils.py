@@ -5,3 +5,7 @@ ADIR = os.path.join(MDIR, 'assets')
 
 BACKGROUND = (0, 255, 0)
 COLORKEY = (255, 0, 255)
+
+
+def asset(filename):
+    return os.path.join(ADIR, filename)
