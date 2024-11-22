@@ -2,11 +2,12 @@ import pygame
 from lib.object import Object
 from lib.sprite import Sprite
 from lib.animation import Animation
+from utils import asset
 
 
 class Player(Object):
     def __init__(self):
-        self.sprite = Sprite.from_filename('sonic.bmp')
+        self.sprite = Sprite.from_filename(asset('sonic.bmp'), (255, 0, 255))
         self.animation = Animation(self.sprite)
 
         super().__init__(56, 64, self.sprite, self.animation)

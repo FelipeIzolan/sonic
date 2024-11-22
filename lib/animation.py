@@ -1,3 +1,6 @@
+# requires
+# - sprite.py
+
 import pygame
 
 
@@ -19,8 +22,7 @@ class Animation:
         anim['rate'] = rate
 
         for frame in frames:
-            anim['frames'].append(self.sprite.frame(frame, (255, 0, 255)))
-
+            anim['frames'].append(self.sprite.frame(frame))
 
     def play(self, name):
         frames = self.anims[name]['frames']
