@@ -8,15 +8,22 @@ import csv
 class Tile:
     def __init__(self, rect, sprite):
         self.rect = rect
-        self.mask = pygame.mask.Mask(rect.size)
+        self.mask = Tile._mask(rect, sprite)
+        self.angle = self.mask.angle()  # <- change
 
+    @staticmethod
+    def _mask(rect, sprite):
+        mask = pygame.mask.Mask(rect.size)
         colorkey = sprite.get_colorkey()
+
         for y in range(rect.height):
             for x in range(rect.width):
                 color = sprite.get_at((rect.x + x, rect.y + y))
 
                 if color != colorkey:
-                    self.mask.set_at((x, y))
+                    mask.set_at((x, y))
+
+        return mask
 
 
 class TileMap:
@@ -26,6 +33,9 @@ class TileMap:
 
         self.width = width
         self.height = height
+
+        self.surface = None
+        self.matrix = None
 
         for y in range(self.sprite.get_height() // height):
             for x in range(self.sprite.get_width() // width):
@@ -37,6 +47,7 @@ class TileMap:
                 )
 
     def from_matrix(self, matrix):
+        self.matrix = matrix
         self.surface = pygame.Surface(
             (
                 self.width * len(matrix[0]),

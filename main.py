@@ -15,14 +15,14 @@ class Game:
         self.quit = False
         self.delta = 0.0
 
-        self.player = Player()
         self.tilemap = TileMap(
             16,
             16,
             Sprite.from_filename(asset('tilemap.bmp'), (255, 0, 255)),
         )
-
         self.tilemap.from_csv(asset('level.csv'))
+
+        self.player = Player()
 
     def start(self):
         while not self.quit:

@@ -5,7 +5,7 @@ import pygame
 
 
 class Animation:
-    def __init__(self, sprite):
+    def __init__(self, sprite=None):
         self.sprite = sprite
         self.anims = {}
 

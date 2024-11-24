@@ -7,10 +7,13 @@ from utils import asset
 
 class Player(Object):
     def __init__(self):
-        self.sprite = Sprite.from_filename(asset('sonic.bmp'), (255, 0, 255))
-        self.animation = Animation(self.sprite)
-
-        super().__init__(56, 64, self.sprite, self.animation)
+        super().__init__(
+            56,
+            64,
+            pygame.Rect(2, 1, 11, 15),
+            Sprite.from_filename(asset('sonic.bmp'), (255, 0, 255)),
+            Animation()
+        )
 
         self.animation.add(
             'idle',
@@ -60,5 +63,5 @@ class Player(Object):
     def update(self):
         super().update()
 
-    def draw(self, screen):
-        super().draw(screen)
+    def draw(self, surface):
+        super().draw(surface)
